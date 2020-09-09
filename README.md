@@ -79,6 +79,7 @@ node01         Ready    <none>   4m54s   v1.18.0   **172.17.0.41**   <none>     
 
 deployment.yaml
 
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -117,6 +118,7 @@ spec:
   selector:
     app: webapp1
 
+```
 ### Commands 
 
 kubectl create -f deployment.yaml
