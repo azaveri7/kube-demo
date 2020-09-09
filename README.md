@@ -74,3 +74,49 @@ node01         Ready    <none>   4m54s   v1.18.0   **172.17.0.41**   <none>     
 
 * curl http://172.17..0.41:32492/employees/2
 ```{"id":2,"firstName":"Anand","lastName":"Zaveri","emailId":"Anand.Zaveri@gmail.com"}```
+
+### Deployment descriptor (Declarative approach)
+
+deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: webapp1
+  template:
+    metadata:
+      labels:
+        app: webapp1
+    spec:
+      containers:
+      - name: webapp1
+        image: azaveri7/docker-labs:kube-demo1
+        ports:
+        - containerPort: 8080
+
+		
+		
+		====
+		
+		apiVersion: v1
+kind: Service
+metadata:
+  name: webapp1-svc
+  labels:
+    app: webapp1
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 30080
+  selector:
+    app: webapp1
+
+### Commands 
+
+kubectl create -f deployment.yaml
